@@ -30,7 +30,14 @@ const initialState:InitialState = {
 const taskSlice = createSlice({
     name:"task",
     initialState,
-    reducers:{},
+    reducers:{
+         addTask:(state,action)=>{
+            state.tasks.push (action.payload);
+            //State: Represents the current state of the slice (state.tasks in this case
+            //action.payload: The data you pass when dispatching the action
+            
+         }
+    },
 });
 
 export const selectTasks = (state:RootState)=>{
@@ -39,6 +46,6 @@ export const selectTasks = (state:RootState)=>{
 export const selectFilter = (state:RootState)=>{
     return state.todo.filter
 }
-
+export const {addTask} = taskSlice.actions;
 
 export default taskSlice.reducer;
