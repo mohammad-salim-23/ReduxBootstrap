@@ -13,7 +13,9 @@ const initialState:InitialState = {
             title:"sokaleBanaici",
             description:"ca kaite mon caar",
             priority:"medium",
-            dueDate:"2025-01-14T"
+            dueDate:"2025-01-14T",
+            assignedTo: null,
+            
         }
     ],
     filter:"all"
@@ -22,7 +24,7 @@ const initialState:InitialState = {
 
 type DraftTask = Pick<Itask, "title" | "description" | "dueDate" | "priority">;
 const createTask = (taskData: DraftTask):Itask=>{
-    return {id: nanoid() , isCompleted:false , ...taskData};
+    return {id: nanoid(), isCompleted: false, assignedTo: null, ...taskData};
 }
 const taskSlice = createSlice({
     name:"task",
