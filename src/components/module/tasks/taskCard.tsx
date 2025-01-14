@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { deleteTask, toggleCompleteState } from "@/redux/featurs/task/taskSlice";
+import { selectUsers } from "@/redux/featurs/user/userSlice";
+import { useAppSelector } from "@/redux/hook";
 import { Itask } from "@/types";
 
 import { Trash2 } from "lucide-react";
@@ -12,6 +14,8 @@ interface IProps {
 
 export default function TaskCard({ task }: IProps) {
   const dispatch = useDispatch();
+  const users = useAppSelector(selectUsers);
+  const assignedUsers = users.find((user)=> user.id === task.assignedTo);
   return (
     <div className="border border-gray-200 px-6 py-5 rounded-lg shadow-md bg-white">
       {/* Header Section */}
@@ -52,6 +56,7 @@ export default function TaskCard({ task }: IProps) {
         </div>
       </div>
 
+     <p>Assigned To - {assignedUsers ? assignedUsers.name: "No one"}</p>
       {/* Task Description */}
       <p className="mt-4 text-gray-600 text-sm leading-relaxed">
         {task.description}
