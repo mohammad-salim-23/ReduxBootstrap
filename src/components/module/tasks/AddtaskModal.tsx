@@ -29,15 +29,19 @@ import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
-import { useForm } from "react-hook-form";
+import {  FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { format } from "date-fns";
+import { useDispatch } from "react-redux";
+import { addTask } from "@/redux/featurs/task/taskSlice";
+import { Itask } from "@/types";
 
 export function AddtaskModal() {
   const form = useForm();
-  
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onSubmit = (data: any) => {
+  const dispatch = useDispatch();
+ 
+  const onSubmit : SubmitHandler<FieldValues> = (data) => {
     console.log(data); // This will log the form data
+    dispatch(addTask(data as Itask));
   };
 
   return (
@@ -54,7 +58,7 @@ export function AddtaskModal() {
           <form className="space-y-3" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
-              name="Title"
+              name="title"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Title</FormLabel>

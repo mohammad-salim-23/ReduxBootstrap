@@ -1,14 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { deleteTask, toggleCompleteState } from "@/redux/featurs/task/taskSlice";
 import { Itask } from "@/types";
 
 import { Trash2 } from "lucide-react";
+import { useDispatch } from "react-redux";
 
 interface IProps {
   task: Itask;
 }
 
 export default function TaskCard({ task }: IProps) {
+  const dispatch = useDispatch();
   return (
     <div className="border border-gray-200 px-6 py-5 rounded-lg shadow-md bg-white">
       {/* Header Section */}
@@ -20,9 +23,9 @@ export default function TaskCard({ task }: IProps) {
             className={cn(
               "w-8 h-8 rounded-full flex items-center justify-center text-white font-medium",
               {
-                "bg-green-500": task.priority === "Low",
-                "bg-yellow-500": task.priority === "Medium",
-                "bg-red-500": task.priority === "High",
+                "bg-green-500": task.priority === "low",
+                "bg-yellow-500": task.priority === "medium",
+                "bg-red-500": task.priority === "high",
               }
             )}
           >
@@ -30,16 +33,23 @@ export default function TaskCard({ task }: IProps) {
           </div>
 
           {/* Task Title */}
-          <h1 className="text-lg font-semibold text-gray-800">{task.title}</h1>
+          <h1 className={cn({ "line-through": task.isCompleted }, "text-lg font-semibold text-gray-800")}>{task.title}</h1>
+         
         </div>
 
         {/* Action Button */}
-        <Button
+        <div>
+        <Button onClick={()=>dispatch(deleteTask(task.id))}
           variant="ghost"
           className="p-2 text-red-500 hover:text-red-700 hover:bg-red-100 rounded-full"
         >
           <Trash2 className="w-5 h-5" />
         </Button>
+        <input checked={task.isCompleted} onClick={()=>dispatch(toggleCompleteState(task.id))}
+  type="checkbox"
+  className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+/>
+        </div>
       </div>
 
       {/* Task Description */}

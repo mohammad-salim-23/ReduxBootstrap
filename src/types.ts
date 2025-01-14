@@ -4,5 +4,5 @@ export interface Itask {
     description: string
     dueDate: string
     isCompleted: boolean
-    priority: "High"|"Medium"|"Low"
+    priority: "high"|"medium"|"low"
   }
