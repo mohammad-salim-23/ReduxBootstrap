@@ -34,8 +34,11 @@ import { format } from "date-fns";
 import { useDispatch } from "react-redux";
 import { addTask } from "@/redux/featurs/task/taskSlice";
 import { Itask } from "@/types";
+import { useAppSelector } from "@/redux/hook";
+import { selectUsers } from "@/redux/featurs/user/userSlice";
 
 export function AddtaskModal() {
+  const users = useAppSelector(selectUsers);
   const form = useForm();
   const dispatch = useDispatch();
  
@@ -85,6 +88,47 @@ export function AddtaskModal() {
                 </FormItem>
               )}
             />
+            
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea {...field} value={field.value || ""} />
+                  </FormControl>
+                  <FormDescription />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="assignedTo"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Assigned To</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select your priority" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                     {
+                      users.map((user)=>(
+                        <SelectItem value={user.id}>{user.name}</SelectItem>
+                      ))
+                     }
+                      
+                    </SelectContent>
+                  </Select>
+                </FormItem>
+              )}
+            />
+
 
             <FormField
               control={form.control}

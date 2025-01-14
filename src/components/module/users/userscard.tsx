@@ -14,15 +14,14 @@ export default function UserCard({user}:IProps){
            <div className="flex justify-between items-center">
 
             <h1 className="text-lg font-semibold ">{user.name}</h1>
-
-           </div>
-           <div>
-           <Button onClick={()=>dispatch(removeUser(user.id))}
+            <Button onClick={()=>dispatch(removeUser(user.id))}
           variant="ghost"
           className="p-2 text-red-500 hover:text-red-700 hover:bg-red-100 rounded-full"
         >
           <Trash2 className="w-5 h-5" />
         </Button>
+          
+           
            </div>
         </div>
 

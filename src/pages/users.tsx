@@ -14,7 +14,7 @@ export default function Users(){
             <h1>Users</h1>
              <AddUserModal/>
             </div>
-            <div>
+            <div className="grid gap-4 grid-cols-2">
                 {
                     users.map(user=>
                         <UserCard user={user}
