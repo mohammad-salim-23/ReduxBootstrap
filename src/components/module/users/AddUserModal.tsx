@@ -17,19 +17,12 @@ import {
   FormField,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { addUser } from "@/redux/featurs/user/userSlice";
-import { IUser } from "@/types";
+import {  useForm } from "react-hook-form";
 
 export function AddUserModal() {
   const form = useForm();
-  const dispatch = useDispatch();
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data); // Log the user data
-    dispatch(addUser(data as IUser)); // Dispatch the addUser action
-  };
+
 
   return (
     <Dialog>
@@ -42,7 +35,7 @@ export function AddUserModal() {
         </DialogHeader>
 
         <Form {...form}>
-          <form className="space-y-3" onSubmit={form.handleSubmit(onSubmit)}>
+          <form className="space-y-3">
             {/* User Name Field */}
             <FormField
               control={form.control}
